@@ -5,7 +5,7 @@ metadata:
 spec:
   kafka:
     version: 3.1.0
-    replicas: 3
+    replicas: 1
     listeners:
       - name: plain
         port: 9092
@@ -27,13 +27,13 @@ spec:
       volumes:
       - id: 0
         type: persistent-claim
-        size: 100Gi
+        size: 2Gi
         deleteClaim: false
   zookeeper:
-    replicas: 3
+    replicas: 1
     storage:
       type: persistent-claim
-      size: 100Gi
+      size: 2Gi
       deleteClaim: false
   entityOperator:
     topicOperator: {}
