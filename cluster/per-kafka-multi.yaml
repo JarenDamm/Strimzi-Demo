@@ -22,7 +22,6 @@ spec:
         authentication:
           type: tls
         configuration:
-          class: kong
           bootstrap:
             host: my-cluster-external
             annotations:
