@@ -4,7 +4,7 @@ metadata:
   name: my-cluster
 spec:
   kafka:
-    version: 3.1.0
+    version: 3.2.0
     replicas: 2
     listeners:
       - name: plain
@@ -15,6 +15,27 @@ spec:
         port: 9093
         type: internal
         tls: true
+      - name: external
+        port: 9094
+        type: ingress
+        tls: true
+        authentication:
+          type: tls
+        configuration:
+          class: kong
+          bootstrap:
+            host: my-cluster-external
+            annotations:
+              kubernetes.io/ingress.class: kong
+          brokers:
+          - broker: 0
+            host: my-cluster-broker-1
+            annotations:
+              kubernetes.io/ingress.class: kong
+          - broker: 1
+            host: my-cluster-broker-2
+            annotations:
+              kubernetes.io/ingress.class: kong
     config:
       offsets.topic.replication.factor: 2
       transaction.state.log.replication.factor: 2
